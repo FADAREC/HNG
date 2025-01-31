@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 $start_time = microtime(true);
 
 function respond(int $status_code, array $data): void {
@@ -11,14 +12,20 @@ function respond(int $status_code, array $data): void {
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET');
+    header('Access-Control-Allow-Methods: GET, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
+    http_response_code(204);
     exit;
 }
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
-if (parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) !== $_SERVER['SCRIPT_NAME']) {
+$requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$scriptName = trim($_SERVER['SCRIPT_NAME'], '/');
+
+if ($requestUri !== $scriptName) {
     respond(404, ["error" => "Route Not Found."]);
 }
 
@@ -27,11 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 $nowUtc = (new DateTimeImmutable('now', new DateTimeZone('UTC')))->format(DATE_ATOM);
-
 respond(200, [
     "email" => "fadarefolajimi67@gmail.com",
     "current_datetime" => $nowUtc,
     "github_url" => "https://github.com/FADAREC/HNG"
 ]);
 
-error_log("Execution Time: " . round((microtime(true) - $start_time) * 1000, 2) . " ms");
+$executionTime = round((microtime(true) - $start_time) * 1000, 2);
+error_log("[INFO] API executed in {$executionTime} ms");
+?>
