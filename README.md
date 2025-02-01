@@ -1,7 +1,7 @@
 # HNG12 Backend Stage 0 Task
 
 ## Overview
-This project implements a simple backend API using Python and Flask to return basic user information in JSON format. The API provides the following:
+This project implements a simple backend API using Python and Flask to return basic user information in JSON format. The API provides the following data:
 - Your registered email address.
 - The current UTC datetime in ISO 8601 format.
 - The URL to the GitHub repository for this project.
@@ -11,17 +11,18 @@ This project implements a simple backend API using Python and Flask to return ba
 - **Framework**: Flask
 - **CORS Handling**: Flask-CORS
 - **Deployment**: The API is deployed on [Heroku](https://www.heroku.com/) (or your chosen platform)
-  
+
 ## Features
-- A public API that returns basic information in JSON format.
+- Public API endpoint that returns basic information in JSON format.
 - Dynamic generation of the current date and time in ISO 8601 format (UTC).
-- Proper handling of CORS requests.
+- Proper handling of CORS requests to allow access from different origins.
 
 ## Setup Instructions
 
 ### Prerequisites
-- Python 3.x
-- `pip` (Python package installer)
+Before running the project locally, ensure you have the following:
+- Python 3.x installed.
+- `pip` (Python package installer) for managing dependencies.
 
 ### Steps to Run the Project Locally:
 
@@ -29,21 +30,44 @@ This project implements a simple backend API using Python and Flask to return ba
    ```bash
    git clone https://github.com/yourusername/HNG12-Backend.git
    cd HNG12-Backend
-2. Create a virtual environment (optional but recommended):
 
-    ```bash
+2. **Create Virtual Environment(Optional)**
+    ```bash 
     python3 -m venv venv
-    source venv/bin/activate  # for macOS/Linux
-    source venv/Scripts/activate  # for Windows
-3. Install dependencies:
+    source venv/bin/activate  # For macOS/Linux
+    source venv/Scripts/activate     # For Windows
 
+3. **Install dependencies** : Incase `requirements.txt` file is not present upon cloning, create one by yourself by running:
+    ```bash
+    pip install flask flask-cors
+    pip freeze > requirements.txt
+Then install the dependencies:
     ```bash
     pip install -r requirements.txt
-4. Run the application:
 
+4. **Run the application**
     ```bash
     python app.py
-5. Access the API: Open your browser or API client (like Postman) and navigate to:
 
+5. **Access the API**
     ```bash
     http://127.0.0.1:5000/
+
+
+### API Documentation
+
+    ```markdown
+    ## API Documentation
+
+    ### Endpoint: `/api/info`
+    - **Method Allowed**: `GET`
+    - **Parameters**: None
+
+    ### Response:
+    The response is in JSON format with the following structure:
+    ```json
+    {
+    "email": "your-email@example.com",
+    "current_datetime": "2025-01-30T09:30:00Z",
+    "github_url": "https://github.com/yourusername/your-repo"
+    }
