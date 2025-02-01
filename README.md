@@ -55,10 +55,7 @@ Then install the dependencies:
 
 
 ### API Documentation
-
-    ```bash
     ## API Documentation
-
     ### Endpoint: `/api/info`
     - **Method Allowed**: `GET`
     - **Parameters**: None
